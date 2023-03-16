@@ -25,6 +25,8 @@ font_color = Color(0.898039, 0.52549, 0, 1)
 [node name="Main" type="Node"]
 script = ExtResource("1_f34xu")
 
+[node name="SoundService" parent="." instance=ExtResource("7_em0qt")]
+
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
@@ -99,12 +101,11 @@ one_shot = true
 [node name="PlayerPaddle" parent="." instance=ExtResource("2_4ndp0")]
 position = Vector2(1005, 360)
 
-[node name="SoundService" parent="." instance=ExtResource("7_em0qt")]
-
 [node name="EnemyPaddle" parent="." instance=ExtResource("8_2u437")]
 position = Vector2(75, 360)
 
 [connection signal="game_is_over" from="." to="Menu" method="_on_main_game_is_over"]
+[connection signal="hit_enemy" from="Ball" to="SoundService" method="play_enemy_sound"]
 [connection signal="hit_player" from="Ball" to="SoundService" method="play_player_sound"]
 [connection signal="body_entered" from="PlayerGoal" to="." method="_on_player_goal_body_entered"]
 [connection signal="body_entered" from="EnemyGoal" to="." method="_on_enemy_goal_body_entered"]

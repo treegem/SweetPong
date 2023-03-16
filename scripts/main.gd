@@ -12,7 +12,10 @@ func _process(delta):
 	$EnemyScore.text = str(enemyScore)
 
 func _physics_process(delta):
-	var directionSign = sign($Ball.position.y - $EnemyPaddle.position.y)
+	var distance = $Ball.position.y - $EnemyPaddle.position.y
+	var directionSign = sign(distance)
+	if abs(distance) < 20: 
+		directionSign = 0
 	$EnemyPaddle.move(Vector2.DOWN * directionSign * delta)
 		
 

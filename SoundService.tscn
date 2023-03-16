@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://bka4tnjrvfs8v"]
+[gd_scene load_steps=4 format=3 uid="uid://bka4tnjrvfs8v"]
 
 [ext_resource type="Script" path="res://scripts/sound_service.gd" id="1_ky5lc"]
 [ext_resource type="AudioStream" uid="uid://bexr7ptv2eutg" path="res://sounds/ping.mp3" id="1_rijxj"]
+[ext_resource type="AudioStream" uid="uid://bhnx0x31e3yhb" path="res://sounds/pong.mp3" id="3_hmh60"]
 
 [node name="SoundService" type="Node"]
 script = ExtResource("1_ky5lc")
 
 [node name="PlayerSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("1_rijxj")
+
+[node name="EnemySound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_hmh60")
