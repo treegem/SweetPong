@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://br61pmryswr2u"]
+[gd_scene load_steps=11 format=3 uid="uid://br61pmryswr2u"]
 
 [ext_resource type="PackedScene" uid="uid://c1jwk3ajsu0g4" path="res://ball.tscn" id="1_coiua"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_f34xu"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://citvf4x1ff0bw" path="res://wall.tscn" id="3_ego6x"]
 [ext_resource type="Script" path="res://scripts/CountdownLabel.gd" id="5_bka5m"]
 [ext_resource type="PackedScene" uid="uid://cf8aqhigmevk5" path="res://menu.tscn" id="6_34ip2"]
+[ext_resource type="PackedScene" uid="uid://bka4tnjrvfs8v" path="res://SoundService.tscn" id="7_em0qt"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_gi34m"]
 font_size = 64
@@ -100,8 +101,10 @@ position = Vector2(994, 339)
 [node name="PlayerPaddle2" parent="." instance=ExtResource("2_4ndp0")]
 position = Vector2(80, 358)
 
+[node name="SoundService" parent="." instance=ExtResource("7_em0qt")]
+
 [connection signal="game_is_over" from="." to="Menu" method="_on_main_game_is_over"]
-[connection signal="hit_player" from="Ball" to="PlayerPaddle" method="_on_ball_hit_player"]
+[connection signal="hit_player" from="Ball" to="SoundService" method="play_player_sound"]
 [connection signal="body_entered" from="PlayerGoal" to="." method="_on_player_goal_body_entered"]
 [connection signal="body_entered" from="EnemyGoal" to="." method="_on_enemy_goal_body_entered"]
 [connection signal="timeout" from="CountdownLabel/CoutndownTimer" to="CountdownLabel" method="_on_coutndown_timer_timeout"]

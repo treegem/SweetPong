@@ -16,7 +16,3 @@ func _physics_process(delta):
 		velocity = Vector2.DOWN * SPEED * delta
 	
 	move_and_collide(velocity)
-
-
-func _on_ball_hit_player():
-	$AudioStreamPlayer2D.play()
