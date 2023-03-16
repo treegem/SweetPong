@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://br61pmryswr2u"]
+[gd_scene load_steps=12 format=3 uid="uid://br61pmryswr2u"]
 
 [ext_resource type="PackedScene" uid="uid://c1jwk3ajsu0g4" path="res://ball.tscn" id="1_coiua"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_f34xu"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/CountdownLabel.gd" id="5_bka5m"]
 [ext_resource type="PackedScene" uid="uid://cf8aqhigmevk5" path="res://menu.tscn" id="6_34ip2"]
 [ext_resource type="PackedScene" uid="uid://bka4tnjrvfs8v" path="res://SoundService.tscn" id="7_em0qt"]
+[ext_resource type="PackedScene" uid="uid://cpx650nspqpo0" path="res://enemy_paddle.tscn" id="8_2u437"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_gi34m"]
 font_size = 64
@@ -96,12 +97,12 @@ one_shot = true
 [node name="Menu" parent="." instance=ExtResource("6_34ip2")]
 
 [node name="PlayerPaddle" parent="." instance=ExtResource("2_4ndp0")]
-position = Vector2(994, 339)
-
-[node name="PlayerPaddle2" parent="." instance=ExtResource("2_4ndp0")]
-position = Vector2(80, 358)
+position = Vector2(1005, 360)
 
 [node name="SoundService" parent="." instance=ExtResource("7_em0qt")]
+
+[node name="EnemyPaddle" parent="." instance=ExtResource("8_2u437")]
+position = Vector2(75, 360)
 
 [connection signal="game_is_over" from="." to="Menu" method="_on_main_game_is_over"]
 [connection signal="hit_player" from="Ball" to="SoundService" method="play_player_sound"]

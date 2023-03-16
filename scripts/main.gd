@@ -11,6 +11,11 @@ func _process(delta):
 	$PlayerScore.text = str(playerScore)
 	$EnemyScore.text = str(enemyScore)
 
+func _physics_process(delta):
+	var directionSign = sign($Ball.position.y - $EnemyPaddle.position.y)
+	$EnemyPaddle.move(Vector2.DOWN * directionSign * delta)
+		
+
 func _ready():
 	$Ball.stop()
 

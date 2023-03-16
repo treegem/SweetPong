@@ -5,6 +5,7 @@ class_name Ball
 # TODO add acceleration to beginning
 
 signal hit_player
+signal hit_enemy
 
 var SPEED = 500
 var direction = Vector2.ZERO
@@ -21,6 +22,8 @@ func _physics_process(delta):
 			adjust_direction_y_based_on_hit_area(collider)
 			if collider is PlayerPaddle:
 				emit_signal("hit_player")
+			elif collider is EnemyPaddle:
+				emit_signal("hit_enemy")
 			
 func adjust_direction_y_based_on_hit_area(paddle: Paddle):
 	direction.y += (position.y - paddle.position.y) / 200
