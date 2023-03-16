@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 class_name Ball
 
+# TODO add acceleration to beginning
+
 signal hit_player
 
 var SPEED = 500
@@ -21,8 +23,7 @@ func _physics_process(delta):
 				emit_signal("hit_player")
 			
 func adjust_direction_y_based_on_hit_area(paddle: Paddle):
-	direction.y += (position.y - paddle.position.y) / 75
-	direction = direction.normalized()
+	direction.y += (position.y - paddle.position.y) / 200
 	
 func reset():
 	direction.x = [-1, 1][randi() % 2]

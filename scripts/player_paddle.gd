@@ -2,7 +2,9 @@ extends Paddle
 
 class_name PlayerPaddle
 
-const SPEED = 800.0
+# TODO make movement smoother
+
+const SPEED = 700.0
 
 
 func _physics_process(delta):
