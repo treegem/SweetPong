@@ -12,11 +12,7 @@ func _process(delta):
 	$EnemyScore.text = str(enemyScore)
 
 func _physics_process(delta):
-	var distance = $Ball.position.y - $EnemyPaddle.position.y
-	var directionSign = sign(distance)
-	if abs(distance) < 20: 
-		directionSign = 0
-	$EnemyPaddle.move(Vector2.DOWN * directionSign * delta)
+	move_enemy_paddle(delta)
 		
 
 func _ready():
@@ -24,9 +20,7 @@ func _ready():
 
 func _on_player_goal_body_entered(body):
 	if body is Ball:
-		print(enemyScore)
 		enemyScore += 1
-		print(enemyScore)
 		proceed_after_goal()
 
 func _on_enemy_goal_body_entered(body):
@@ -61,3 +55,10 @@ func _on_menu_play_button_pressed():
 	enemyScore = 0
 	$Menu.hide()
 	start_new_round()
+
+func move_enemy_paddle(delta):
+	var distance = $Ball.position.y - $EnemyPaddle.position.y
+	var directionSign = sign(distance)
+	if abs(distance) < 20: 
+		directionSign = 0
+	$EnemyPaddle.move(Vector2.DOWN * directionSign * delta)
