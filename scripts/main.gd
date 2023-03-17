@@ -1,8 +1,9 @@
 extends Node
 
-signal game_is_over(text: String)
+signal player_wins
+signal player_loses
 
-const MAX_SCORE = 3
+const MAX_SCORE = 1
 
 var playerScore = 0
 var enemyScore = 0
@@ -14,7 +15,6 @@ func _process(delta):
 func _physics_process(delta):
 	move_enemy_paddle(delta)
 		
-
 func _ready():
 	$Ball.stop()
 
@@ -29,13 +29,10 @@ func _on_enemy_goal_body_entered(body):
 		proceed_after_goal()
 
 func proceed_after_goal():
-	if is_game_over():
-		var text: String
-		if playerScore == MAX_SCORE:
-			text = "You win"
-		elif enemyScore == MAX_SCORE:
-			text = "You lose"
-		emit_signal("game_is_over", text)
+	if playerScore == MAX_SCORE:
+		emit_signal("player_wins")
+	elif enemyScore == MAX_SCORE:
+		emit_signal("player_loses")
 	else:
 		start_new_round()
 
@@ -59,6 +56,6 @@ func _on_menu_play_button_pressed():
 func move_enemy_paddle(delta):
 	var distance = $Ball.position.y - $EnemyPaddle.position.y
 	var directionSign = sign(distance)
-	if abs(distance) < 20: 
+	if abs(distance) < 50: 
 		directionSign = 0
 	$EnemyPaddle.move(Vector2.DOWN * directionSign * delta)

@@ -104,7 +104,10 @@ position = Vector2(1005, 360)
 [node name="EnemyPaddle" parent="." instance=ExtResource("8_2u437")]
 position = Vector2(75, 360)
 
-[connection signal="game_is_over" from="." to="Menu" method="_on_main_game_is_over"]
+[connection signal="player_loses" from="." to="SoundService" method="play_lose_sound"]
+[connection signal="player_loses" from="." to="Menu" method="display_player_loses"]
+[connection signal="player_wins" from="." to="SoundService" method="play_win_sound"]
+[connection signal="player_wins" from="." to="Menu" method="display_player_wins"]
 [connection signal="hit_enemy" from="Ball" to="SoundService" method="play_enemy_sound"]
 [connection signal="hit_player" from="Ball" to="SoundService" method="play_player_sound"]
 [connection signal="body_entered" from="PlayerGoal" to="." method="_on_player_goal_body_entered"]
