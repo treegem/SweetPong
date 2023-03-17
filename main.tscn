@@ -1,9 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://br61pmryswr2u"]
+[gd_scene load_steps=14 format=3 uid="uid://br61pmryswr2u"]
 
 [ext_resource type="PackedScene" uid="uid://c1jwk3ajsu0g4" path="res://ball.tscn" id="1_coiua"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_f34xu"]
 [ext_resource type="PackedScene" uid="uid://b3opiqrmefvoj" path="res://player_paddle.tscn" id="2_4ndp0"]
 [ext_resource type="PackedScene" uid="uid://citvf4x1ff0bw" path="res://wall.tscn" id="3_ego6x"]
+[ext_resource type="Script" path="res://scripts/PlayerScore.gd" id="3_jbhdc"]
+[ext_resource type="Script" path="res://scripts/EnemyScore.gd" id="4_wxum1"]
 [ext_resource type="Script" path="res://scripts/CountdownLabel.gd" id="5_bka5m"]
 [ext_resource type="PackedScene" uid="uid://cf8aqhigmevk5" path="res://menu.tscn" id="6_34ip2"]
 [ext_resource type="PackedScene" uid="uid://bka4tnjrvfs8v" path="res://SoundService.tscn" id="7_em0qt"]
@@ -48,6 +50,7 @@ text = "0"
 label_settings = SubResource("LabelSettings_gi34m")
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("3_jbhdc")
 
 [node name="EnemyScore" type="Label" parent="."]
 offset_left = 200.0
@@ -58,6 +61,7 @@ text = "0"
 label_settings = SubResource("LabelSettings_gi34m")
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("4_wxum1")
 
 [node name="Ball" parent="." instance=ExtResource("1_coiua")]
 position = Vector2(540, 360)
@@ -104,8 +108,13 @@ position = Vector2(1005, 360)
 [node name="EnemyPaddle" parent="." instance=ExtResource("8_2u437")]
 position = Vector2(75, 360)
 
+[connection signal="enemy_scored" from="." to="EnemyScore" method="_on_main_enemy_scored"]
+[connection signal="new_round_started" from="." to="Ball" method="reset"]
+[connection signal="new_round_started" from="." to="CountdownLabel" method="count_down"]
+[connection signal="new_round_started" from="." to="Menu" method="_on_main_new_round_started"]
 [connection signal="player_loses" from="." to="SoundService" method="play_lose_sound"]
 [connection signal="player_loses" from="." to="Menu" method="display_player_loses"]
+[connection signal="player_scored" from="." to="PlayerScore" method="_on_main_player_scored"]
 [connection signal="player_wins" from="." to="SoundService" method="play_win_sound"]
 [connection signal="player_wins" from="." to="Menu" method="display_player_wins"]
 [connection signal="hit_enemy" from="Ball" to="SoundService" method="play_enemy_sound"]

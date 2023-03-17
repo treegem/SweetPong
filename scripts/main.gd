@@ -2,31 +2,29 @@ extends Node
 
 signal player_wins
 signal player_loses
+signal player_scored(score: int)
+signal enemy_scored(score: int)
+signal new_round_started
 
 const MAX_SCORE = 3
 
 var playerScore = 0
 var enemyScore = 0
 
-func _process(_delta):
-	$PlayerScore.text = str(playerScore)
-	$EnemyScore.text = str(enemyScore)
-
 func _physics_process(delta):
 	move_enemy_paddle(delta)
-		
-func _ready():
-	$Ball.reset()
 
 func _on_player_goal_body_entered(body):
 	if body is Ball:
 		enemyScore += 1
 		proceed_after_goal()
+		emit_signal("enemy_scored", enemyScore)
 
 func _on_enemy_goal_body_entered(body):
 	if body is Ball:
 		playerScore += 1
 		proceed_after_goal()
+		emit_signal("player_scored", playerScore)
 
 func proceed_after_goal():
 	if playerScore == MAX_SCORE:
@@ -34,11 +32,7 @@ func proceed_after_goal():
 	elif enemyScore == MAX_SCORE:
 		emit_signal("player_loses")
 	else:
-		start_new_round()
-
-func start_new_round():		
-	$CountdownLabel.count_down()
-	$Ball.reset()
+		emit_signal("new_round_started")
 
 func reset_scores():
 	playerScore = 0
@@ -46,8 +40,7 @@ func reset_scores():
 
 func _on_menu_play_button_pressed():
 	reset_scores()
-	$Menu.hide()
-	start_new_round()
+	emit_signal("new_round_started")
 
 func move_enemy_paddle(delta):
 	var distance = $Ball.position.y - $EnemyPaddle.position.y

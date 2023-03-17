@@ -2,19 +2,17 @@ extends CharacterBody2D
 
 class_name Ball
 
-# TODO add acceleration to beginning
-
 signal hit_player
 signal hit_enemy
 
-var SPEED = 500
-var direction = Vector2.ZERO
+var speed: int
+var direction: Vector2
 
 func _ready():
 	reset()
 
 func _physics_process(delta):
-	var collision: KinematicCollision2D  = move_and_collide(direction * SPEED * delta)
+	var collision: KinematicCollision2D  = move_and_collide(direction * speed * delta)
 	if collision:
 		direction = direction.bounce(collision.get_normal())
 		var collider = collision.get_collider()
@@ -29,13 +27,10 @@ func adjust_direction_y_based_on_hit_area(paddle: Paddle):
 	direction.y += (position.y - paddle.position.y) / 200
 	
 func reset():
-	SPEED = 0
+	speed = 0
 	direction.x = [-1, 1][randi() % 2]
 	direction.y = randf_range(-0.5, 0.5)
 	set_position(get_viewport_rect().size / 2)
-	
-func start():
-	SPEED = 500
 
 func _on_coutndown_timer_timeout():
-	start()
+	speed = 500

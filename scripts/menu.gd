@@ -16,3 +16,6 @@ func display_player_wins():
 func display_player_loses():
 	$Label.text = "You lose"
 	show()
+
+func _on_main_new_round_started():
+	hide()
