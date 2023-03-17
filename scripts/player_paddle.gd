@@ -2,17 +2,14 @@ extends Paddle
 
 class_name PlayerPaddle
 
-# TODO make movement smoother
-
-const SPEED = 700.0
-
-
 func _physics_process(delta):
-	velocity = Vector2.ZERO
+	var input_vector: Vector2
 	
 	if Input.is_action_pressed("ui_up"):
-		velocity = Vector2.UP * SPEED * delta
+		input_vector = Vector2.UP
 	elif Input.is_action_pressed("ui_down"):
-		velocity = Vector2.DOWN * SPEED * delta
+		input_vector = Vector2.DOWN
+	else:
+		input_vector = Vector2.ZERO
 	
-	move_and_collide(velocity)
+	move(input_vector, delta)

@@ -56,6 +56,5 @@ func _on_menu_play_button_pressed():
 func move_enemy_paddle(delta):
 	var distance = $Ball.position.y - $EnemyPaddle.position.y
 	var directionSign = sign(distance)
-	if abs(distance) < 50: 
-		directionSign = 0
-	$EnemyPaddle.move(Vector2.DOWN * directionSign * delta)
+	var speed = clampf(abs(distance) / 35, 0, 1)
+	$EnemyPaddle.move(Vector2.DOWN * directionSign * speed, delta)
