@@ -29,12 +29,13 @@ func adjust_direction_y_based_on_hit_area(paddle: Paddle):
 	direction.y += (position.y - paddle.position.y) / 200
 	
 func reset():
+	SPEED = 0
 	direction.x = [-1, 1][randi() % 2]
 	direction.y = randf_range(-0.5, 0.5)
 	set_position(get_viewport_rect().size / 2)
 	
-func stop():
-	SPEED = 0
-	
 func start():
 	SPEED = 500
+
+func _on_coutndown_timer_timeout():
+	start()
