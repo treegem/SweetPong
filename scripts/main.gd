@@ -11,8 +11,8 @@ const MAX_SCORE = 3
 var playerScore = 0
 var enemyScore = 0
 
-func _physics_process(delta):
-	move_enemy_paddle(delta)
+func _ready():
+	$EnemyPaddle.set_target($Ball)
 
 func _on_player_goal_body_entered(body):
 	if body is Ball:
@@ -41,9 +41,3 @@ func reset_scores():
 func _on_menu_play_button_pressed():
 	reset_scores()
 	emit_signal("new_round_started")
-
-func move_enemy_paddle(delta):
-	var distance = $Ball.position.y - $EnemyPaddle.position.y
-	var directionSign = sign(distance)
-	var speed = clampf(abs(distance) / 50, 0, 1)
-	$EnemyPaddle.move(Vector2.DOWN * directionSign * speed, delta)
