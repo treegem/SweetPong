@@ -14,13 +14,13 @@ var enemyScore = 0
 func _ready():
 	$EnemyPaddle.set_target($Ball)
 
-func _on_player_goal_body_entered(body):
+func _on_enemy_scored(body):
 	if body is Ball:
 		enemyScore += 1
 		proceed_after_goal()
 		emit_signal("enemy_scored", enemyScore)
 
-func _on_enemy_goal_body_entered(body):
+func _on_player_scored(body):
 	if body is Ball:
 		playerScore += 1
 		proceed_after_goal()
@@ -28,16 +28,16 @@ func _on_enemy_goal_body_entered(body):
 
 func proceed_after_goal():
 	if playerScore == MAX_SCORE:
-		emit_signal("player_wins")
+		$UI.show_player_won()
 	elif enemyScore == MAX_SCORE:
-		emit_signal("player_loses")
+		$UI.show_player_lost()
 	else:
-		emit_signal("new_round_started")
+		start_new_round()
 
 func reset_scores():
 	playerScore = 0
 	enemyScore = 0
 
-func _on_menu_play_button_pressed():
-	reset_scores()
-	emit_signal("new_round_started")
+func start_new_round():
+	$Ball.reset()
+	$UI.count_down()

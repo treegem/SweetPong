@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=3 uid="uid://elxaphnhs724"]
+
+[ext_resource type="Script" path="res://scripts/ui.gd" id="1_r0ggl"]
+[ext_resource type="Script" path="res://scripts/score.gd" id="2_in3ue"]
+[ext_resource type="PackedScene" uid="uid://cf8aqhigmevk5" path="res://menu.tscn" id="3_hkope"]
+[ext_resource type="Script" path="res://scripts/CountdownLabel.gd" id="4_5wg1k"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gi34m"]
+font_size = 64
+font_color = Color(0.682353, 0.682353, 0.682353, 1)
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_f86xu"]
+font_size = 64
+font_color = Color(0.898039, 0.52549, 0, 1)
+
+[node name="UI" type="Node"]
+script = ExtResource("1_r0ggl")
+
+[node name="PlayerScore" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -240.0
+offset_top = 40.0
+offset_right = -200.0
+offset_bottom = 131.0
+grow_horizontal = 0
+text = "0"
+label_settings = SubResource("LabelSettings_gi34m")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_in3ue")
+
+[node name="EnemyScore" type="Label" parent="."]
+offset_left = 200.0
+offset_top = 40.0
+offset_right = 240.0
+offset_bottom = 131.0
+text = "0"
+label_settings = SubResource("LabelSettings_gi34m")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_in3ue")
+
+[node name="Menu" parent="." instance=ExtResource("3_hkope")]
+
+[node name="CountdownLabel" type="Label" parent="."]
+visible = false
+offset_left = 521.0
+offset_top = 250.0
+offset_right = 561.0
+offset_bottom = 341.0
+text = "0"
+label_settings = SubResource("LabelSettings_f86xu")
+script = ExtResource("4_5wg1k")
+
+[node name="CountdownTimer" type="Timer" parent="CountdownLabel"]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="new_game_started" from="Menu" to="." method="_on_menu_new_game_started"]
+[connection signal="new_game_started" from="Menu" to="PlayerScore" method="reset_score"]
+[connection signal="new_game_started" from="Menu" to="EnemyScore" method="reset_score"]
+[connection signal="new_game_started" from="Menu" to="CountdownLabel" method="count_down"]
+[connection signal="timeout" from="CountdownLabel/CountdownTimer" to="." method="_on_countdown_timer_timeout"]
+[connection signal="timeout" from="CountdownLabel/CountdownTimer" to="CountdownLabel" method="_on_coutndown_timer_timeout"]

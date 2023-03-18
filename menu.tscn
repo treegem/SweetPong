@@ -6,7 +6,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kmg3r"]
 bg_color = Color(0.917647, 0.6, 0.345098, 1)
 
-[node name="DarkOverlay" type="ColorRect"]
+[node name="Menu" type="ColorRect"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -52,4 +52,5 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 64
 text = "Battle Pong"
 
+[connection signal="new_game_started" from="." to="." method="_on_new_game_started"]
 [connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
