@@ -35,7 +35,7 @@ position = Vector2(75, 360)
 [connection signal="enemy_scored" from="World" to="." method="_on_enemy_scored"]
 [connection signal="player_scored" from="World" to="." method="_on_player_scored"]
 [connection signal="countdown_timer_timeout" from="UI" to="Ball" method="_on_coutndown_timer_timeout"]
-[connection signal="new_game_started" from="UI" to="." method="reset_scores"]
 [connection signal="new_game_started" from="UI" to="." method="start_new_round"]
+[connection signal="new_game_started" from="UI" to="." method="reset_scores"]
 [connection signal="hit_enemy" from="Ball" to="SoundService" method="play_enemy_sound"]
 [connection signal="hit_player" from="Ball" to="SoundService" method="play_player_sound"]
