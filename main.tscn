@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://br61pmryswr2u"]
+[gd_scene load_steps=9 format=3 uid="uid://br61pmryswr2u"]
 
 [ext_resource type="PackedScene" uid="uid://c1jwk3ajsu0g4" path="res://ball.tscn" id="1_coiua"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_f34xu"]
 [ext_resource type="PackedScene" uid="uid://b3opiqrmefvoj" path="res://player_paddle.tscn" id="2_4ndp0"]
+[ext_resource type="PackedScene" uid="uid://cscy1uatbsex2" path="res://upgrade_service.tscn" id="2_5hysq"]
 [ext_resource type="PackedScene" uid="uid://4hvv3rgv647s" path="res://world.tscn" id="2_xdd68"]
 [ext_resource type="PackedScene" uid="uid://elxaphnhs724" path="res://ui.tscn" id="3_dc5lp"]
 [ext_resource type="PackedScene" uid="uid://bka4tnjrvfs8v" path="res://SoundService.tscn" id="7_em0qt"]
@@ -10,6 +11,12 @@
 
 [node name="Main" type="Node"]
 script = ExtResource("1_f34xu")
+
+[node name="UpgradeService" parent="." instance=ExtResource("2_5hysq")]
+upgrade_position_x_min = 92
+upgrade_position_x_max = 988
+upgrade_position_y_min = 1
+upgrade_position_y_max = 719
 
 [node name="World" parent="." instance=ExtResource("2_xdd68")]
 
@@ -27,15 +34,12 @@ position = Vector2(1005, 360)
 [node name="EnemyPaddle" parent="." instance=ExtResource("8_2u437")]
 position = Vector2(75, 360)
 
-[connection signal="enemy_scored" from="." to="UI" method="update_enemy_score"]
-[connection signal="new_round_started" from="." to="Ball" method="reset"]
-[connection signal="player_loses" from="." to="SoundService" method="play_lose_sound"]
-[connection signal="player_scored" from="." to="UI" method="update_player_score"]
-[connection signal="player_wins" from="." to="SoundService" method="play_win_sound"]
+[connection signal="slow_bullet_created" from="UpgradeService" to="." method="_on_child_created"]
 [connection signal="enemy_scored" from="World" to="." method="_on_enemy_scored"]
 [connection signal="player_scored" from="World" to="." method="_on_player_scored"]
 [connection signal="countdown_timer_timeout" from="UI" to="Ball" method="_on_coutndown_timer_timeout"]
-[connection signal="new_game_started" from="UI" to="." method="start_new_round"]
-[connection signal="new_game_started" from="UI" to="." method="reset_scores"]
+[connection signal="new_game_started" from="UI" to="." method="start_new_game"]
 [connection signal="hit_enemy" from="Ball" to="SoundService" method="play_enemy_sound"]
 [connection signal="hit_player" from="Ball" to="SoundService" method="play_player_sound"]
+[connection signal="upgrade_triggered" from="PlayerPaddle" to="UpgradeService" method="_on_player_paddle_upgrade_triggered"]
+[connection signal="upgrade_collected" from="EnemyPaddle" to="UpgradeService" method="reset_timer"]

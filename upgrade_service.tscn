@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cscy1uatbsex2"]
+
+[ext_resource type="Script" path="res://scripts/upgrade_service.gd" id="1_xojgi"]
+
+[node name="UpgradeService" type="Node"]
+script = ExtResource("1_xojgi")
+
+[node name="UpgradeTimer" type="Timer" parent="."]
+wait_time = 100.0
+one_shot = true
+
+[connection signal="timeout" from="UpgradeTimer" to="." method="create_upgrade"]

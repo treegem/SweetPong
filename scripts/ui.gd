@@ -1,5 +1,7 @@
 extends Node
 
+class_name UI
+
 signal countdown_timer_timeout
 signal new_game_started
 
