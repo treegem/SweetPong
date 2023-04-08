@@ -8,8 +8,6 @@ class_name UpgradeService
 @export var upgrade_position_y_max: int
 @export var upgrade_radius = 32
 
-signal slow_bullet_created(bullet: SlowBullet)
-
 var slowBulletScene: PackedScene = preload("res://slow_bullet.tscn")
 var upgrade: PackedScene = preload("res://upgrade.tscn")
 
@@ -20,12 +18,8 @@ func _ready():
 	upgradeTimer = $UpgradeTimer
 
 
-func _process(delta):
-	if !upgradeTimer.is_stopped():
-		print(upgradeTimer.time_left)
-
-
 func _on_player_paddle_upgrade_triggered(paddle: Paddle):
+	print("upgrade service noticed that player trigger upgrade")
 	var slowBullet = slowBulletScene.instantiate()
 	slowBullet.position = paddle.position + Vector2(-paddle.width() / 2,0)
 	add_visible_child(slowBullet)
