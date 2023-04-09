@@ -12,7 +12,7 @@
 [node name="Main" type="Node"]
 script = ExtResource("1_f34xu")
 
-[node name="UpgradeService" parent="." instance=ExtResource("2_5hysq")]
+[node name="UpgradeService" parent="." groups=["resettable"] instance=ExtResource("2_5hysq")]
 upgrade_position_x_min = 92
 upgrade_position_x_max = 988
 upgrade_position_y_min = 1
@@ -28,18 +28,18 @@ upgrade_position_y_max = 719
 position = Vector2(540, 360)
 scale = Vector2(1.5, 1.5)
 
-[node name="PlayerPaddle" parent="." instance=ExtResource("2_4ndp0")]
+[node name="PlayerPaddle" parent="." groups=["resettable"] instance=ExtResource("2_4ndp0")]
 position = Vector2(1005, 360)
 
 [node name="EnemyPaddle" parent="." instance=ExtResource("8_2u437")]
 position = Vector2(75, 360)
 
-[connection signal="slow_bullet_created" from="UpgradeService" to="." method="_on_child_created"]
 [connection signal="enemy_scored" from="World" to="." method="_on_enemy_scored"]
 [connection signal="player_scored" from="World" to="." method="_on_player_scored"]
 [connection signal="countdown_timer_timeout" from="UI" to="Ball" method="_on_coutndown_timer_timeout"]
 [connection signal="new_game_started" from="UI" to="." method="start_new_game"]
 [connection signal="hit_enemy" from="Ball" to="SoundService" method="play_enemy_sound"]
 [connection signal="hit_player" from="Ball" to="SoundService" method="play_player_sound"]
-[connection signal="upgrade_triggered" from="PlayerPaddle" to="UpgradeService" method="_on_player_paddle_upgrade_triggered"]
+[connection signal="slow_bullet_created" from="PlayerPaddle" to="." method="_on_visible_child_created"]
+[connection signal="upgrade_collected" from="PlayerPaddle" to="UpgradeService" method="reset_timer"]
 [connection signal="upgrade_collected" from="EnemyPaddle" to="UpgradeService" method="reset_timer"]

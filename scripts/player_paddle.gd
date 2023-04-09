@@ -2,12 +2,16 @@ extends Paddle
 
 class_name PlayerPaddle
 
-signal upgrade_triggered(paddle)
+var slowBulletScene: PackedScene = preload("res://slow_bullet.tscn")
 
-var upgraded: bool = false
-var glowEnergy: int = 0
+signal upgrade_collected
+signal slow_bullet_created(slowBullet: SlowBullet)
+
 var light: PointLight2D
 var slowBulletTimer: Timer
+
+const LIGHT_ENERGY_MINIMUM: int = 0
+const SLOW_BULLET_TIMER_WAIT_START: int = 5
 
 
 func _ready():
@@ -16,26 +20,27 @@ func _ready():
 
 
 func receive_upgrade():
-	if upgraded == false:
-		upgraded = true
+	emit_signal("upgrade_collected")
+	if slowBulletTimer.is_stopped():
 		create_slow_bullet()
 		slowBulletTimer.start()
 	else:
 		slowBulletTimer.wait_time /= 2
 	increase_glow()
-	emit_signal("upgrade_triggered", self)
 
 
-func remove_upgrade():
-	upgraded = false
+func reset():
+	reset_glow()
+	slowBulletTimer.stop()
+	slowBulletTimer.wait_time = SLOW_BULLET_TIMER_WAIT_START
 
 
 func increase_glow():
-	light.energy = clampi(light.energy + 2, 0, 10)
+	light.energy = clampi(light.energy + 2, LIGHT_ENERGY_MINIMUM, 10)
 	
 	
 func reset_glow():
-	light.energy = 0
+	light.energy = LIGHT_ENERGY_MINIMUM
 
 
 func width():
@@ -56,4 +61,6 @@ func _physics_process(delta):
 
 
 func create_slow_bullet():
-	print("create slow bullet")
+	var slowBullet = slowBulletScene.instantiate()
+	slowBullet.position = position + Vector2(-width() / 2,0)
+	emit_signal("slow_bullet_created", slowBullet)

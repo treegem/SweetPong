@@ -6,6 +6,8 @@ var ACCELERATION = 100
 var SPEED = 300
 
 
+# todo: queue_free when leaving visible area
+
 func _physics_process(delta):
 	SPEED += delta * ACCELERATION
 	ACCELERATION *= 1.1

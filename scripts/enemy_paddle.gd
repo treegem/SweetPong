@@ -7,6 +7,7 @@ signal upgrade_collected
 var target: Node2D
 const MAX_SPEED_MODIFIER: float = 2
 var speed_modifier: float = MAX_SPEED_MODIFIER
+var speed_modifier_tween: Tween
 
 
 func receive_upgrade():
@@ -22,6 +23,8 @@ func _physics_process(delta):
 
 
 func get_hit(bullet: Node):
-	var tween = get_tree().create_tween()
+	if speed_modifier_tween != null:
+		speed_modifier_tween.kill()
+	speed_modifier_tween = get_tree().create_tween()
 	speed_modifier = MAX_SPEED_MODIFIER / 20
-	tween.tween_property(self, "speed_modifier", MAX_SPEED_MODIFIER, 4).set_trans(Tween.TRANS_EXPO)
+	speed_modifier_tween.tween_property(self, "speed_modifier", MAX_SPEED_MODIFIER, 4).set_trans(Tween.TRANS_EXPO)

@@ -1,6 +1,6 @@
 extends Node
 
-const MAX_SCORE = 1
+const MAX_SCORE = 2
 
 var playerScore = 0
 var enemyScore = 0
@@ -39,30 +39,41 @@ func _on_player_scored(body):
 
 
 func proceed_after_goal():
+	if playerScore < MAX_SCORE and enemyScore < MAX_SCORE:
+		start_new_round()
+	else:
+		end_game()
+	
+	
+	
+func end_game():
+	reset_children()
 	if playerScore == MAX_SCORE:
 		ui.show_player_won()
 		soundService.play_win_sound()
 	elif enemyScore == MAX_SCORE:
 		ui.show_player_lost()
 		soundService.play_lose_sound()
-	else:
-		start_new_round()
 
 
-func reset_scores():
+func clear_score():
 	playerScore = 0
 	enemyScore = 0
 
 
 func start_new_game():
-	playerPaddle.remove_upgrade()
-	upgradeService.remove_all_upgrades()
-	reset_scores()
+	clear_score()
 	start_new_round()
 
 
 func start_new_round():
-	upgradeService.reset_timer()
-	ball.reset()
-	playerPaddle.remove_upgrade()
+	reset_children()
 	ui.count_down()
+	
+	
+func reset_children():
+	get_tree().call_group("resettable", "reset")
+
+	
+func _on_visible_child_created(node: Node):
+	add_child(node)
