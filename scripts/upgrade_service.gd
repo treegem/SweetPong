@@ -24,7 +24,7 @@ func reset():
 
 
 func _reset_timer():
-	upgradeTimer.wait_time = randf_range(2.0, 5.0)
+	upgradeTimer.wait_time = randf_range(1.0, 3.0)
 	upgradeTimer.start()
 	
 	
