@@ -13,10 +13,9 @@ metadata/_edit_group_ = true
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(-20, 3.33786e-06)
-scale = Vector2(0.141844, 1.12875)
-enabled = false
+scale = Vector2(0.142, 1.129)
 color = Color(1, 0.258824, 0.396078, 1)
-energy = 5.0
+energy = 0.0
 shadow_enabled = true
 texture = ExtResource("2_l5oe2")
 texture_scale = 0.75
@@ -26,3 +25,8 @@ texture = ExtResource("1_hg7eg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_mnclp")
+
+[node name="SlowBulletTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="timeout" from="SlowBulletTimer" to="." method="create_slow_bullet"]

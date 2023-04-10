@@ -12,6 +12,9 @@ var direction: Vector2
 var lastContact: Paddle = null
 
 
+# todo: fix bounce from paddle side
+
+
 func _ready():
 	reset()
 
