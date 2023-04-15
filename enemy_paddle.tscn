@@ -22,6 +22,5 @@ rotation = 3.14159
 
 [node name="SlowBulletTimer" type="Timer" parent="."]
 wait_time = 5.0
-autostart = true
 
 [connection signal="timeout" from="SlowBulletTimer" to="." method="create_slow_bullet"]
