@@ -7,7 +7,7 @@ func _ready():
 	light = $Light
 	slowBulletTimer = $SlowBulletTimer
 	collisionShape = $CollisionShape2D
-	SLOW_BULLET_X_DIRECTION = -1
+	slow_bullet_x_direction = -1
 	super._ready()
 
 

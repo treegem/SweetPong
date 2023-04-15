@@ -2,13 +2,13 @@ extends Area2D
 
 class_name SlowBullet
 
-var acceleration = 100
-var speed = 300
+var acceleration = 50
+var speed = 600
 var X_DIRECTION: int
 var viewport: Rect2
 var sprite: Sprite2D
+var creator: Paddle
 
-# todo: queue_free when leaving visible area
 
 func _ready():
 	sprite = $Sprite2D
@@ -16,13 +16,13 @@ func _ready():
 
 func _physics_process(delta):
 	speed += delta * acceleration
-	acceleration *= 1.1
+	acceleration *= 1.07
 	position.x += speed * delta * X_DIRECTION
 	if not viewport.has_point(position):
 		queue_free()
 
 
 func _on_body_entered(body):
-	if body.is_in_group("hittable"):
-		body.get_hit(self)
+	if body is Paddle and body != creator:
+		body.get_hit()
 		queue_free()
