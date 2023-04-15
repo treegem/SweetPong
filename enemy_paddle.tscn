@@ -1,12 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://cpx650nspqpo0"]
+[gd_scene load_steps=5 format=3 uid="uid://cpx650nspqpo0"]
 
 [ext_resource type="Script" path="res://scripts/enemy_paddle.gd" id="1_1aoge"]
 [ext_resource type="Texture2D" uid="uid://86x5e8uf7uyc" path="res://art/EnemyPaddle.png" id="1_s3ctc"]
+[ext_resource type="PackedScene" uid="uid://0uok4vthcoh1" path="res://paddle_glow.tscn" id="3_6tt0j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7516w"]
 size = Vector2(32, 160)
 
-[node name="EnemyPaddle" type="CharacterBody2D" groups=["hittable", "upgrade_collector"]]
+[node name="EnemyPaddle" type="CharacterBody2D"]
 script = ExtResource("1_1aoge")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -14,3 +15,13 @@ texture = ExtResource("1_s3ctc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_7516w")
+
+[node name="Light" parent="." instance=ExtResource("3_6tt0j")]
+position = Vector2(20, 3.33786e-06)
+rotation = 3.14159
+
+[node name="SlowBulletTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="SlowBulletTimer" to="." method="create_slow_bullet"]

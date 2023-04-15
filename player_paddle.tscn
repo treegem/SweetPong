@@ -2,23 +2,16 @@
 
 [ext_resource type="Script" path="res://scripts/player_paddle.gd" id="1_al7e7"]
 [ext_resource type="Texture2D" uid="uid://dcufbvl7ge6wb" path="res://art/PlayerPaddle.png" id="1_hg7eg"]
-[ext_resource type="Texture2D" uid="uid://cjuwmu6n8842j" path="res://art/light_source.png" id="2_l5oe2"]
+[ext_resource type="PackedScene" uid="uid://0uok4vthcoh1" path="res://paddle_glow.tscn" id="2_0dvna"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mnclp"]
 size = Vector2(32, 160)
 
-[node name="PlayerPaddle" type="CharacterBody2D" groups=["upgrade_collector"]]
+[node name="PlayerPaddle" type="CharacterBody2D"]
 script = ExtResource("1_al7e7")
 metadata/_edit_group_ = true
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(-20, 3.33786e-06)
-scale = Vector2(0.142, 1.129)
-color = Color(1, 0.258824, 0.396078, 1)
-energy = 0.0
-shadow_enabled = true
-texture = ExtResource("2_l5oe2")
-texture_scale = 0.75
+[node name="Light" parent="." instance=ExtResource("2_0dvna")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_hg7eg")

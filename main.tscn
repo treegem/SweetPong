@@ -28,7 +28,7 @@ upgrade_position_y_max = 719
 position = Vector2(540, 360)
 scale = Vector2(1.5, 1.5)
 
-[node name="PlayerPaddle" parent="." groups=["resettable"] instance=ExtResource("2_4ndp0")]
+[node name="PlayerPaddle" parent="." instance=ExtResource("2_4ndp0")]
 position = Vector2(1005, 360)
 
 [node name="EnemyPaddle" parent="." instance=ExtResource("8_2u437")]
@@ -42,4 +42,5 @@ position = Vector2(75, 360)
 [connection signal="hit_player" from="Ball" to="SoundService" method="play_player_sound"]
 [connection signal="slow_bullet_created" from="PlayerPaddle" to="." method="_on_visible_child_created"]
 [connection signal="upgrade_collected" from="PlayerPaddle" to="UpgradeService" method="reset_timer"]
+[connection signal="slow_bullet_created" from="EnemyPaddle" to="." method="_on_visible_child_created"]
 [connection signal="upgrade_collected" from="EnemyPaddle" to="UpgradeService" method="reset_timer"]

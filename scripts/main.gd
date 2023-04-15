@@ -45,7 +45,6 @@ func proceed_after_goal():
 		end_game()
 	
 	
-	
 func end_game():
 	reset_children()
 	if playerScore == MAX_SCORE:
