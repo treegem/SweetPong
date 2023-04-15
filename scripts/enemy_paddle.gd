@@ -2,19 +2,23 @@ extends Paddle
 
 class_name EnemyPaddle
 
-signal upgrade_collected
-
 var target: Node2D
 const MAX_SPEED_MODIFIER: float = 2
 var speed_modifier: float = MAX_SPEED_MODIFIER
 var speed_modifier_tween: Tween
 
 
-func receive_upgrade():
-	emit_signal("upgrade_collected")
+func _ready():
+	light = $Light
+	slowBulletTimer = $SlowBulletTimer
+	collisionShape = $CollisionShape2D
+	SLOW_BULLET_X_DIRECTION = 1
+	super._ready()
+
 
 func set_target(newTarget: Node2D):
 	target = newTarget
+
 
 func _physics_process(delta):
 	var distance = target.position.y -position.y
