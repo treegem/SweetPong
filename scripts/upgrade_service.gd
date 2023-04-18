@@ -8,6 +8,7 @@ class_name UpgradeService
 @export var upgrade_position_y_max: int
 @export var upgrade_radius = 32
 
+var upgradeType = preload("res://scripts/enum/upgrade_type.gd").UpgradeType
 
 var upgradeScene: PackedScene = preload("res://upgrade.tscn")
 
@@ -15,6 +16,7 @@ var upgradeTimer: Timer
 
 
 func _ready():
+	print(upgradeType)
 	upgradeTimer = $UpgradeTimer
 
 

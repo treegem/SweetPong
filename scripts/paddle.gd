@@ -24,9 +24,7 @@ var speed_modifier_tween: Tween
 
 func _ready():
 	reset()
-	var groups = ["upgrade_collector", "resettable", "hittable"]
-	for group in groups:
-		add_to_group(group)
+	add_to_group("resettable")
 	slowBulletTimer.start()
 
 
@@ -41,7 +39,7 @@ func receive_upgrade():
 
 
 func increase_glow():
-	light.energy = clampi(light.energy + 2, LIGHT_ENERGY_MINIMUM, 10)
+	light.energy = clampf(light.energy + 2, LIGHT_ENERGY_MINIMUM, 10)
 
 
 func create_slow_bullet():
